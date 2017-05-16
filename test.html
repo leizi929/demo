@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" href="css/demo.css" />
+    </head>
+
+    <body>
+        <div id="app">
+            <fieldset>
+                <legend>创建个人信息</legend>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" v-model="newPerson.name">
+                </div>
+                <div class="form-group">
+                    <label>Age:</label>
+                    <input type="text" v-model="newPerson.age">
+                </div>
+                <div class="form-group">
+                    <label>Sex:</label>
+                    <select v-model="newPerson.sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button @click="CreatePerson">Create</button>
+                </div>
+            </fieldset>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="i in people">
+                        <td>{{i.name}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.sex}}</td>
+                        <td :class="'text-center'"><button @click="del($index)">Delete</button></td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script src="js/vue.js"></script>
+    <script>
+        var vue = new Vue({
+            el:"#app",
+            data:{
+                newPerson:{name:"",age:"0",sex:"Male"},
+                people:[{name:'zhangsan',age:26,sex:'Male'},
+                        {name:'lisi',age:27,sex:'Male'},
+                        {name:'mazi',age:29,sex:'Female'},
+                        {name:'wanger',age:28,sex:'Male'}]
+            },
+            methods:{
+                CreatePerson:function(){
+                    this.people.push(this.newPerson);
+                    //添加完newPerson对象后，重置newPerson对象
+                    this.newPerson = {name:'',age:0,sex:'Male'};
+                },
+                del:function(index){
+                    // 删一个数组元素
+                    this.people.splice(index,1)
+                }
+            }
+        })
+    </script>
+
+</html>
